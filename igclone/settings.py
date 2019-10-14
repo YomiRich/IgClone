@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'igclone.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'ig',
-        'USER': '<moringa >',
-    'PASSWORD':'<1234>',
+        'USER': 'moringa',
+    'PASSWORD':'1234',
     }
 }
 
