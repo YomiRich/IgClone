@@ -1,5 +1,12 @@
 from django.shortcuts import render,redirect
-from .models import Location,Image
+from .forms import *
+from .models import *
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.forms.models import inlineformset_factory
+
 # Create your views here.
 def welcome(request):
     return render(request,'welcome.html')
@@ -38,6 +45,24 @@ def search_results(request):
     else:
         message=" Item not found."
         return render(request,'search.html',{"message":message})
-        
+
+def signup(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect("login")
+    else:
+        form = SignUpForm()
+    return render(request, "registration/signup.html", {"form": form})
+
+
+
+
+
 
     

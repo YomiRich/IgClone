@@ -16,9 +16,9 @@ class SignUpForm(UserCreationForm):
 class NewStatusForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields =['image', 'image_caption']
+        fields =['image', 'image_description']
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Location
-        fields = ['comment']    
+        fields = ['location']    
