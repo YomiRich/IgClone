@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'NAME': 'ig',
         'USER': 'moringa',
-    'PASSWORD':'1234',
+    'PASSWORD':'Pekelee1!',
     }
 }
 
