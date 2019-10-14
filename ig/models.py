@@ -5,32 +5,33 @@ from django.db.models import Q
 
 
 # Create your models here.
-class Category (models.Model):
-    category = models.CharField(max_length =30)
+class Caption (models.Model):
+    caption = models.CharField(max_length =30)
     def __str__(self):
-        return self.category
+        return self.caption
     
-    def save_category(self):
+    def save_caption(self):
         self.save()
         
-class Location (models.Model):
-    location = models.CharField(max_length =30)
-    
+class Profile (models.Model):
+    profile_photo = models.ImageField(upload_to='images/',default='',blank=True)
+    bio = models.CharField(max_length =60)
     def __str__(self):
-        return self.location
+        return self.bio
     
     class Meta:
-        ordering = ['location']
+        ordering = ['profile']
         
-    def save_location(self):
+    def save_profile_photo(self):
         self.save()
         
 class Image(models.Model):
     image = models.ImageField(upload_to='images/',default='',blank=True)
     image_name =models.CharField(max_length =60) 
-    image_description = models.CharField(max_length=255)
-    image_location = models.ForeignKey('Location',on_delete=models.SET_NULL,null=True)
-    image_category = models.ManyToManyField(Category)
+    image_caption = models.CharField(max_length=255)
+    image_profile = models.ForeignKey('Profile',on_delete=models.SET_NULL,null=True)
+    likes = 
+    comments =
     
     def __str__(self):
         return self.image_name
@@ -59,11 +60,11 @@ class Image(models.Model):
         return image
     
     @classmethod
-    def search_by_location(cls,search_term):
-        image = Image.objects.filter(location__id=search_term).all()
+    def search_by_profile(cls,search_term):
+        image = Image.objects.filter(profile__id=search_term).all()
         return image
     
     @classmethod
-    def search_by_category(cls,search_term):
-        images = Image.objects.filter(Q(image_category__category__icontains=search_term)| Q(image_location__location__icontains=search_term) |Q(image_name__icontains=search_term))
+    def search_by_caption(cls,search_term):
+        images = Image.objects.filter(Q(image_profile__profile__icontains=search_term)| Q(image_profile__profile__icontains=search_term) |Q(image_name__icontains=search_term))
         return images

@@ -15,8 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView, LoginView
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^ig/',include('ig.urls'))
+    url(r'^ig/',include('ig.urls')),
+    url(
+        "login/",
+        LoginView.as_view(),
+        {"next_page": settings.LOGIN_REDIRECT_URL},
+        name="login",
+    ),
+    url(
+        "logout/",
+        LogoutView.as_view(),
+        {"next_page": settings.LOGOUT_REDIRECT_URL},
+        name="logout",
+    ),
 ]
