@@ -1,0 +1,62 @@
+{%extends 'base.html'%} 
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if images %}
+      <h2>Found {{ images|length }} of searched term  {{message}}</h2>
+    {% else %}
+      <h2> Found 0 images for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row ">
+    
+      {% for pic in images %}
+      <a data-toggle="modal" data-target="#{{pic.id}}">
+      <div class="col-md-4 " >
+        <div class="well well-lg">
+          <img  src="{{pic.image.url}}"  class = "img-responsive" alt="" height='415px'data-target="#{{pic.id}}">
+          <br>
+          <br>
+          <button onclick="copyToClipboard('#{{pic.id}}-url')" style="background-color:skyblue; color:black;">Copy image link</button>
+          
+          <br>
+        </div>
+      </div>
+    </a>
+      
+    <!-- Modal -->
+  <div id="{{pic.id}}" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{pic.image_name}}</h4>
+        </div>
+        <div class="modal-body">
+            <img  src="{{pic.image.url}}"  class = "img-responsive" alt="" height='415px'data-target="#{{pic.id}}">
+          <ul class="list-group">
+            <li class="list-group-item">Location: {{pic.image_location}}</li>
+            <li class="list-group-item">Category: {{pic.image_category.category}}</li>
+            <li class="list-group-item">Description: {{pic.image_description}}</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+            <button onclick="copyToClipboard('#{{pic.id}}-url')" style="background-color:skyblue; color:black;">Copy image link</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+      
+      {% endfor %}
+  
+  </div>
+</div>
+{% endblock %}
+
