@@ -5,6 +5,26 @@ from django.db.models import Q
 
 
 # Create your models here.
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to="profile/", max_length=255, null=True, blank=True, default="")
+    phone = models.DecimalField(max_digits=10, decimal_places=0, default=0)
+    email_confirmed = models.BooleanField(default=False)
+    bio = models.TextField()
+    
+    def __str__(self):
+        return self.user.username
+    
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+    instance.profile.save()
+        
 class Category (models.Model):
     category = models.CharField(max_length =30)
     def __str__(self):
@@ -45,7 +65,7 @@ class Image(models.Model):
     
     @classmethod
     def get_image_by_id(cls,id):
-        image = cls.objects.filter(id=id)
+        image = cls.objects.get(id=id)
         return image
     
     @classmethod
