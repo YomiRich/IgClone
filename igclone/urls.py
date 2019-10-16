@@ -17,20 +17,18 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ig/',include('ig.urls')),
-    url(
-        "login/",
-        LoginView.as_view(),
-        {"next_page": settings.LOGIN_REDIRECT_URL},
+    url("login/",
+        LoginView.as_view(template_name='registration/login.html'),
         name="login",
     ),
     url(
         "logout/",
-        LogoutView.as_view(),
-        {"next_page": settings.LOGOUT_REDIRECT_URL},
+        LogoutView.as_view(template_name='registration/logout.html'),
         name="logout",
     ),
 ]
