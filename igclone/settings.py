@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = 'login/'
+LOGIN_URL='login'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -130,3 +131,4 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

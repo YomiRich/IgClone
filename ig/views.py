@@ -10,6 +10,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 
 # Create your views here.
+@login_required
 def welcome(request):
     return render(request,'welcome.html')
 
