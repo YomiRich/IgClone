@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 
 # Create your views here.
 def welcome(request):
@@ -51,11 +52,12 @@ def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save() 
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            # user = authenticate(username=username, password=raw_password)
+            # login(request, user)
+            messages.success(request,f'Your account has beeen created successfully!')
             return redirect("login")
     else:
         form = SignUpForm()
