@@ -18,7 +18,7 @@ def welcome(request):
 def photo_of_day(request):
     location = Location.objects.all()
     images=Image.objects.all()
-    return render(request,'welcome.html',{"images":images, "location": location})
+    return render(request,'homepage.html',{"images":images, "location": location})
 
 def search_by_category(request):
     if 'image' in request.GET and request.GET["image"]:
