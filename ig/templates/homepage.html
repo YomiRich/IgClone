@@ -1,5 +1,6 @@
 {%extends 'base.html'%} 
 {% block content %}
+<br><br>
 <div class="container">
 
  
@@ -13,7 +14,7 @@
           <img  src="{{pic.image.url}}"  class = "img-responsive" alt="" height='415px'data-target="#{{pic.id}}">
           <br>
           <br>
-          <button onclick="copyToClipboard('#{{pic.id}}-url')" style="background-color:skyblue; color:black;">Copy image link</button>
+          
           
           <br>
         </div>
@@ -39,7 +40,7 @@
           </ul>
         </div>
         <div class="modal-footer">
-            <button onclick="copyToClipboard('#{{pic.id}}-url')" style="background-color:skyblue; color:black;">Copy image link</button>
+            
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
