@@ -1,0 +1,1 @@
+Procfile echo 'web: gunicorn IgClone.wsgi'
