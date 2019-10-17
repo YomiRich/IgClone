@@ -7,8 +7,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.models import inlineformset_factory
 from django.core.exceptions import PermissionDenied
+from django.contrib import messages
+from django.shortcuts import redirect
 
 # Create your views here.
+@login_required
 def welcome(request):
     return render(request,'welcome.html')
 
@@ -16,7 +19,7 @@ def welcome(request):
 def photo_of_day(request):
     location = Location.objects.all()
     images=Image.objects.all()
-    return render(request,'welcome.html',{"images":images, "location": location})
+    return render(request,'homepage.html',{"images":images, "location": location})
 
 def search_by_category(request):
     if 'image' in request.GET and request.GET["image"]:
@@ -51,11 +54,12 @@ def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save() 
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            # user = authenticate(username=username, password=raw_password)
+            # login(request, user)
+            messages.success(request,f'Your account has beeen created successfully!')
             return redirect("login")
     else:
         form = SignUpForm()
