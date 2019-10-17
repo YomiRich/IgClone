@@ -1,1 +1,1 @@
-Procfile echo 'web: gunicorn IgClone.wsgi'
+web: gunicorn IgClone.wsgi --log-file -
