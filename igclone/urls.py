@@ -23,12 +23,12 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('ig.urls')),
     url("login/",
-        LoginView.as_view(template_name='registration/login.html'),
+        LoginView.as_view(), {"next_page": settings.LOGIN_REDIRECT_URL},
         name="login",
     ),
     url(
         "logout/",
-        LogoutView.as_view(template_name='registration/logout.html'),
+        LogoutView.as_view(), {"next_page": settings.LOGOUT_REDIRECT_URL},
         name="logout",
     ),
 ]

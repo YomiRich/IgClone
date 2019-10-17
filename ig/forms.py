@@ -21,4 +21,9 @@ class NewStatusForm(forms.ModelForm):
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Location
-        fields = ['location']    
+        fields = ['location']
+        
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email"] 
