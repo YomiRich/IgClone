@@ -1,1 +1,1 @@
-web: gunicorn IgClone.wsgi --log-file -
+web: gunicorn igclone.wsgi --log-file -
